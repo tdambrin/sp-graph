@@ -1,9 +1,15 @@
 <template>
   <div id="app">
     <div class="query-container">
-      <form v-on:submit.prevent="search" class='search-box'>
+      <form v-on:submit.prevent="search" class='search-box' v-bind:style="[isMobile ? {'width': '320px'} : {'width': '750px'}]">
         <span @click.prevent='forwardFocus'>Search Spotify</span>
-        <query-input class='query-input' placeholder='ex: Mariella Khruangbin' ref='queryInput'></query-input>
+        <query-input
+          class='query-input'
+          placeholder='ex: Mariella Khruangbin'
+          @inputEnter="search"
+          ref='queryInput'
+          :isMobile="isMobile"
+        ></query-input>
         <a type='submit' class='search-submit' href='#' @click.prevent='search'>Go</a>
       </form>
     </div>
@@ -263,7 +269,6 @@ export default {
     this.$watch(
       () => this.$refs.queryInput.selectedTypes, // Watch child1's computed1 property
       (newValue) => {
-        console.log("New value")
         this.selectedTypes = newValue.map(item => item.name);
       },
       { immediate: true } // Trigger immediately to set initial value
@@ -357,7 +362,6 @@ a {
   z-index : 2;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
   height: 40px;
-  width: 750px;
   display: flex;
   font-size: 16px;
   padding: 0 0 0 48px;

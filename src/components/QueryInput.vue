@@ -1,10 +1,11 @@
 <template>
     <div class='query-input-container'>
-        <input class='search-input' 
+        <input class='search-input' @keyup.enter="$emit('inputEnter')"
         v-model='searchValue' @input="$emit('update:modelValue', $event.target.value)"
         type='text' :placeholder='placeholder' autofocus ref='input'>
-        <span style="padding-right: 30px; padding-left: 30px;"> with types </span>
+        <span v-show="!isMobile" style="padding-right: 30px; padding-left: 30px;"> with types </span>
         <multiselect 
+        v-show="!isMobile"
         id="type-selector" 
         v-model="selectedTypes" 
         :options="allTypes" 
@@ -26,7 +27,7 @@
 
 
   export default {
-    props: ['placeholder', 'modelValue'],
+    props: ['placeholder', 'modelValue', 'isMobile'],
     watch: {
       modelValue(newValue) {
         console.log('emitted');
@@ -93,7 +94,4 @@
 
   }
 
-  .search-input{
-    width: 300px;
-  }
   </style>

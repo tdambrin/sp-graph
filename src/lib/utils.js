@@ -51,14 +51,12 @@ const spgAPIGet = async function ( endpoint, query_params, session_id ) {
   if (query_params) {
     url += new URLSearchParams(query_params).toString() 
   }
-  console.log(`Sending HTTP Get for ${url}`);
   var headers_ = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
   if (!(session_id == null)) {
     headers_['Session-Id'] = session_id;
-    console.log('added session id to header', headers_);
   }
   const response = await fetch( url, {
     method: 'GET',

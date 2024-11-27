@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="query-container">
-      <form v-on:submit.prevent="search" class='search-box' v-bind:style="[isMobile ? {'width': '320px'} : {'width': '750px'}]">
+      <form v-on:submit.prevent="search" class='search-box' v-bind:style="[isMobile ? {'width': '320px'} : {'width': '800px'}]">
         <span @click.prevent='forwardFocus'>Search Spotify</span>
         <query-input
           class='query-input'
@@ -20,7 +20,15 @@
     <div id="graph-container">
       <NetworkVue ref="graph_net" id="graph"
         :options="{
-          interaction: {hover: true, zoomSpeed: 0.5}
+          interaction: {hover: true, zoomSpeed: 0.5},
+          physics: {
+            enabled: true,
+            solver: 'forceAtlas2Based',
+            forceAtlas2Based: {
+              springLength: 10,
+              springConstant: 0.1
+            }
+          }
         }"
         :selectedTypes="selectedTypes"
         :isMobile="isMobile"
@@ -73,11 +81,20 @@ async function createSession() {
 
 // -- Graph --
 
+function stabilize (context) {
+  if (context.isMobile){
+    context.$refs.graph_net.fit({minZoomLevel: .1, maxZoomLevel: .35, animation: {duration: 4000}});
+    return;
+  }
+  context.$refs.graph_net.fit({minZoomLevel: .4, maxZoomLevel: .5, animation: {duration: 4000}});
+}
+
 function handleTaskResult(context, body) {
   const newNodes = body?.nodes ?? [];
   context.$refs.graph_net.addNodes(newNodes);
   var newEdges = body?.edges ?? [];
   context.$refs.graph_net.addEdges(newEdges);
+  setTimeout(stabilize, 2000, context);
 }
 
 async function checkStatus(context, taskId, initialDelay, nextDelay) {
@@ -355,6 +372,11 @@ a {
   padding-top: 1em;
   z-index: 2;
   position: relative;
+
+  span {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-style: oblique;
+  }
 }
 
 .search-box {

@@ -3,7 +3,7 @@
         <input class='search-input' @keyup.enter="$emit('inputEnter')"
         v-model='searchValue' @input="$emit('update:modelValue', $event.target.value)"
         type='text' :placeholder='placeholder' autofocus ref='input'>
-        <span v-show="!isMobile" style="padding-right: 30px; padding-left: 30px;"> with types </span>
+        <span v-show="!isMobile" class="indicator"> with types </span>
         <multiselect 
         v-show="!isMobile"
         id="type-selector" 
@@ -65,6 +65,7 @@
   <style lang="stylus">
   @import('../vars.styl');
   
+
   .query-input-container {
     position: relative;
     display: flex;
@@ -86,6 +87,13 @@
     }
   }
   
+  .indicator {
+    padding-right: 30px;
+    padding-left: 30px;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-style: oblique;
+  }
+
   .multiselect {
     .multiselect__tag {
       display: inline-flex;

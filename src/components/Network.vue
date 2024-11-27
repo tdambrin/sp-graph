@@ -1,7 +1,7 @@
 <template>
     <div class="top-level-container">
-        <div v-show="this.nodeLength != 0" id="viz" ref="visualization"></div>
-        <div v-show="this.nodeLength == 0" id="msg-wrapper">
+        <div v-show="this.nodeLength != 0" class="viz" ref="visualization"></div>
+        <div v-show="this.nodeLength == 0" v-bind:class="[isMobile ? 'msg-wrapper-mobile' : 'msg-wrapper']">
             <h2 id="msg">Enter search keywords to get a graph</h2>
             <h3><i>Graph properties</i></h3>
             <p>
@@ -17,8 +17,8 @@
                 Play track preview
             </p>
             <p><i>Double Click - </i>Expand graph around outside node</p>
-            <p><i>Shift Click - </i>Open Spotify</p>
-            <p><i>Alt/Option Click - </i>Delete node and its successors</p>
+            <p v-show="!isMobile"><i>Shift Click - </i>Open Spotify</p>
+            <p v-show="!isMobile"><i>Alt/Option Click - </i>Delete node and its successors</p>
         </div>
     </div>
 </template>
@@ -34,7 +34,7 @@ z-index: 1;
 width: 100vw;
 }
 
-#viz {
+.viz {
 height: 100vh;
 display:flex;
 top: 0px;
@@ -46,7 +46,7 @@ justify-content: center;
 vertical-align: center;
 }
 
-#msg-wrapper {
+.msg-wrapper {
 z-index: 2;
 width: 100%;
 height: 100vh;
@@ -69,8 +69,36 @@ h2 {
 p, h2, h3 {
     color: #888888;
 }
-
 }
+
+.msg-wrapper-mobile {
+    z-index: 2;
+    width: 100%;
+    height: 100vh;
+    display:flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    justify-content: center;
+    vertical-align: center;
+    text-align: center;
+
+    p, h3 {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    }
+
+    h2 {
+        font-size: 18px;
+        font-style: oblique;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    p, h2, h3 {
+        color: #888888;
+    }
+    }
 </style>
   
 <script>

@@ -1,5 +1,9 @@
 <template>
-  <div id="app">
+  <div class="msg-wrapper" v-show="deprecated">
+    <h2>As of 27 Novemeber 2024, Spotify has deprecated most endpoints</h2>
+    <p>The app is therefore down. Please, show support <a href="https://community.spotify.com/t5/Spotify-for-Developers/Changes-to-Web-API/td-p/6540414"> on the forum</a></p>
+  </div>
+  <div id="app" v-show="!deprecated">
     <div class="query-container">
       <form v-on:submit.prevent="search" class='search-box' v-bind:style="[isMobile ? {'width': '320px'} : {'width': '800px'}]">
         <span @click.prevent='forwardFocus'>Search Spotify</span>
@@ -255,6 +259,7 @@ export default {
   },
   data() {
     return {
+      deprecated: true,
       aboutVisible: false,
       appState: getAppState(),
       selectedTypes: ['artist', 'album', 'track'],
@@ -433,4 +438,29 @@ a {
   top: 0px;
 }
 
-}</style>
+.msg-wrapper {
+  z-index: 2;
+  width: 100%;
+  height: 100vh;
+  display:flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  justify-content: center;
+  vertical-align: center;
+  text-align: center;
+  
+  p, h3 {
+      font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  }
+  
+  h2 {
+      font-size: 30px;
+      font-style: oblique;
+  }
+  
+  p, h2, h3 {
+      color: #888888;
+  }
+}
+}
+</style>

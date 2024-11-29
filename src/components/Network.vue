@@ -2,7 +2,7 @@
     <div class="top-level-container">
         <div v-show="this.nodeLength != 0" class="viz" ref="visualization"></div>
         <div v-show="this.nodeLength == 0" v-bind:class="[isMobile ? 'msg-wrapper-mobile' : 'msg-wrapper']">
-            <h2 id="msg">Enter search keywords to get a graph</h2>
+            <h2>Enter search keywords to get a graph</h2>
             <h3><i>Graph properties</i></h3>
             <p>
                 The graph structure is <b>a backbone of {{ this.backboneType }}s</b>
@@ -17,7 +17,7 @@
                 Play track preview
             </p>
             <p><i>Double Click - </i>Expand graph around outside node</p>
-            <p v-show="!isMobile"><i>Shift Click - </i>Open Spotify</p>
+            <p v-show="!isMobile"><i>Shift Click - </i>Open Deezer</p>
             <p v-show="!isMobile"><i>Alt/Option Click - </i>Delete node and its successors</p>
         </div>
     </div>

@@ -81,6 +81,7 @@
       color: highlight-color
       height: 100%;
       font-size: 16px;
+      font-style: oblique;
       &:focus {
         outline: none;
       }
@@ -98,8 +99,15 @@
     .multiselect__tag {
       display: inline-flex;
       vertical-align: center;
+      background-color: rgba(#ff673d, .7);
     }
-
+    .multiselect__tag-icon::after {
+      color: rgba(highlight-color, 1);
+    }
+    .multiselect__tag-icon:focus::after,
+    .multiselect__tag-icon:hover::after {
+       color: white;
+    }
   }
 
   </style>

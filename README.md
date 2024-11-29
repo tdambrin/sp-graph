@@ -5,9 +5,9 @@
     <img src="https://img.shields.io/badge/vue-3.2.13-green.svg" alt="Vue JS version" />
 </a>
 
-# Spotify Graph Search - Frontend
+# Deezer Graph Search - Frontend
 
-Visualize music as connections. Paired with [Spotify Graph API](https://github.com/tdambrin/sp-graph-api)
+Visualize music as connections. Paired with [Deezer Graph API](https://github.com/tdambrin/sp-graph-api)
 
 ## Run locally
 

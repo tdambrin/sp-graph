@@ -1,12 +1,12 @@
 <template>
   <div class="msg-wrapper" v-show="deprecated">
-    <h2>As of 27 Novemeber 2024, Spotify has deprecated most endpoints</h2>
+    <h2>As of 27 November 2024, Spotify has deprecated most endpoints</h2>
     <p>The app is therefore down. Please, show support <a href="https://community.spotify.com/t5/Spotify-for-Developers/Changes-to-Web-API/td-p/6540414"> on the forum</a></p>
   </div>
   <div id="app" v-show="!deprecated">
     <div class="query-container">
       <form v-on:submit.prevent="search" class='search-box' v-bind:style="[isMobile ? {'width': '320px'} : {'width': '800px'}]">
-        <span @click.prevent='forwardFocus'>Search Spotify</span>
+        <span @click.prevent='forwardFocus'>Search Deezer</span>
         <query-input
           class='query-input'
           placeholder='ex: Mariella Khruangbin'
@@ -18,6 +18,13 @@
       </form>
     </div>
     <div class='about-line'>
+      <a href="https://developers.deezer.com/api">
+      <img
+      src="https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoiZGVlemVyXC9maWxlXC9mYXhHNkFTUWZNenlYVVpvNUdrZS5wbmcifQ:deezer:FVXlbyUjCUgEJp7Z0KmlJDk9UyQ_6c4r5yH919dHbh0?width=800"
+      width="20px"
+      height="20px"
+      style="border-radius: 50%;"
+      ></a>
       <a class='about-link' href='https://tdambrin.github.io'>about</a>
       <a class='bold' href='https://github.com/tdambrin/sp-graph'>source code</a>
     </div>
@@ -125,7 +132,7 @@ async function checkStatus(context, taskId, initialDelay, nextDelay) {
       }
       checkStatus(context, taskId, nextDelay, nextDelay);
   } else {
-      console.err("No status property in task status check");
+      console.error("No status property in task status check");
   }
 }
 
@@ -231,7 +238,7 @@ function stopAndPlayAudio(prev_url) {
 
 // Click
 // + Alt : remove node
-// + Shift : Open spotify
+// + Shift : Open Deezer
 async function onNodeSelected(params) {
   const node = this.$refs.graph_net.getNode(params.nodes[0]);
   if (params.event.srcEvent.altKey) {  // remove node
@@ -239,7 +246,7 @@ async function onNodeSelected(params) {
     this.$refs.graph_net.removeNode(nodesToDel);
     return;
   }
-  if (params.event.srcEvent.shiftKey) {  // open spotify
+  if (params.event.srcEvent.shiftKey) {  // open deezer
     window.open(node.href, '_blank');
     return;
   }
@@ -259,7 +266,7 @@ export default {
   },
   data() {
     return {
-      deprecated: true,
+      deprecated: false,
       aboutVisible: false,
       appState: getAppState(),
       selectedTypes: ['artist', 'album', 'track'],
@@ -285,6 +292,7 @@ export default {
     expand,
     handleTaskResult,
     createOrGetSession,
+    stopAndPlayAudio,
   },
   mounted() {
     this.createOrGetSession();
@@ -357,7 +365,7 @@ a {
   align-items: stretch;
   z-index: 2;
 
-  a {
+  a, span {
     text-align: right;
     background: background-color;
     font-size: 12px;
@@ -366,6 +374,9 @@ a {
     height: 24px;
     color: secondary-color;
     border-bottom: 1px solid transparent;
+  }
+
+  a {
     &:hover, &:focus {
       color: highlight-color;
       border-bottom: 1px dashed;
